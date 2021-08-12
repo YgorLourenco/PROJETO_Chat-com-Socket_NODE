@@ -38,6 +38,8 @@ function addMessage(type, user, msg) {
             }
             break;
     }
+
+    ul.scrollTop = ul.scrollHeight
 }
 
 // Colocando o nome do usuário sendo visto no navegador
@@ -101,12 +103,13 @@ socket.on('disconnect', () => {
 })
 
 // Tentar reconectar e não funcionar
-socket.on('reconnect_error', () => {
-    addMessage('status', null, 'Tentano reconectar...')
+socket.io.on('reconnect_error', () => {
+    addMessage('status', null, 'Tentando reconectar...')
+    console.log('reconnect fired!');
 })
 
 // Se conseguir reconectar
-socket.on('reconnect', () => {
+socket.io.on('reconnect', () => {
     addMessage('status', null, 'Reconectado!')
 
     if(username != '') {
